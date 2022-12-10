@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>360-degree video</title>
+  <script src="aframe-v1.2.0.min.js"></script>
+</head>
+<body>
+<a-scene>
+  <a-assets>
+  　<video id="video" src="park.mp4" preload="auto" autoplay></video>
+  </a-assets>
+  <a-videosphere src="#video" rotation="0 -65 0"></a-videosphere>
+  <!-- Play/Stop button for when autoplay doesn't work for a video -->
+  <a-box id="play" position="-0.5 0 -1" scale="0.2 0.2 0.2" color="blue"></a-box>
+  <a-box id="stop" position="0.5 0 -1" scale="0.2 0.2 0.2" color="red"></a-box>
+
+  
+  <!-- box for link -->
+  <a-box id="link" position="1.5 0 -1" scale="0.2 0.2 0.2" color="yellow" linkbox></a-box>
+  <!-- Eye cursor for pressing the play/stop button -->
+  <a-camera>
+    <a-cursor fuse="true" fuse-timeout="1000"></a-cursor>
+  </a-camera>
+  
+</a-scene>
+
+<!-- JavaScript for playing and stopping videos -->
+<script>
+const video = document.getElementById("video");   // Getting video
+const btnPlay = document.getElementById("play");  // Getting the Play button
+btnPlay.addEventListener("click", (e) => {        // If it is clicked
+  video.play();                                   // Play the video
+});
+const btnStop = document.getElementById("stop");  // Getting the Stop Button
+btnStop.addEventListener("click", (e) => {        // If it is clicked
+  video.pause();                                  // Stop the video
+});
+</script>
+
+<script>
+  function toLink(){
+    window.location.href = "beach.html"
+  }
+
+  AFRAME.registerComponent('linkbox', {
+    init: function () {  
+      console.log(this);　
+      const element = this.el;　　
+      element.addEventListener('mouseenter', function () {　//Click with your eyes instead of the mouse
+        console.log('mouseenter');
+        setTimeout(toLink, 5000); //Execute the toLink function
+        
+      });
+    }
+  });
+
+</script>
+
+</body>
+</html>
